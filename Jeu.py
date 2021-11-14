@@ -54,7 +54,9 @@ class Console:
         self.jeu = Moteur(nom1, nom2)
         
     def jouer (self):
-        
+        """
+        Gère la partie.
+        """
         print("Tour du joueur " + str(self.jeu.joueur))
         
         print("| " * self.jeu.nbBatons)
