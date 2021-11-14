@@ -68,7 +68,11 @@ class Console:
         
         print("| " * self.jeu.nbBatons)
         
-        moinsBatons = input("Combien de batons voulez vous retirer ? ")
+        if self.jeu.joueur == 1:
+            moinsBatons = input("Combien de batons voulez vous retirer ? (Tour de " + self.jeu.nom1 + ") ")
+            
+        else:
+            moinsBatons = input("Combien de batons voulez vous retirer ? (Tour de " + self.jeu.nom2 + ") ")
         
         while moinsBatons.isdigit() is False or self.jeu.limitation(int(moinsBatons)) is False :
             
