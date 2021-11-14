@@ -1,11 +1,11 @@
 class Moteur :
     
-    def __init__ (self, nom1, nom2):
+    def __init__ (self, nom1, nom2, nbBatons):
         """
         Initialise le nombres de batons et le joueur qui joue.
         """
         
-        self.nbBatons = 21
+        self.nbBatons = nbBatons
         self.joueur = 1
         self.nom1 = nom1
         self.nom2 = nom2
@@ -51,7 +51,14 @@ class Console:
         """
         nom1 = input("Quel est le prénom du joueur 1 ? ")
         nom2 = input("Quel est le prénom du joueur 2 ? ")
-        self.jeu = Moteur(nom1, nom2)
+        nbBatons = input("Avec combien de batons voulez-vous jouer ? ")
+        
+        while nbBatons.isdigit() is False:
+            nbBatons = input("Avec combien de batons voulez-vous jouer ? ")
+            
+        self.jeu = Moteur(nom1, nom2, int(nbBatons))
+        self.jouer()
+        
         
     def jouer (self):
         """
