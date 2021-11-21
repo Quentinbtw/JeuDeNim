@@ -100,7 +100,81 @@ class Console:
             return
                 
         return self.jouer()
+    
+
+class InterfaceUtilisateur:
+    
+    def __init__(self, fenetre):
+        """
+       Initialise ma fenêtre pour le jeu de nim
+        """
         
+        self.fenetre = fenetre
+        self.fenetre.title("Jeu De Nim by... " )
+        self.fenetre.attributes("-fullscreen", True)
+        self.grandEcran = True
+        self.fenetre.bind("<F11>", self.changerFullScreen)
+        self.fenetre.geometry("1000x600+200+200")
+        self.fenetre.configure(bg='black')
+        self.largeur = self.fenetre.winfo_screenwidth()
+        self.hauteur = self.fenetre.winfo_screenheight()
+        self.nom1 = None
+        self.nom2 = None
+        self.labelNom = Label(self.fenetre, text="Entrer le nom du joueur 1", bg='black', fg='white')
+        self.labelNom.pack()
+        self.entreeNom = Entry(self.fenetre)
+        self.entreeNom.pack()
+        self.fenetre.bind("<Return>", self.enregistrerNom)
+        
+        
+    def changerFullScreen(self, event=None):
+        """
+        Alterne entre fenêtré et grand écran.
+		"""
+        
+        if self.grandEcran :
+            self.fenetre.attributes("-fullscreen", False)
+            self.grandEcran = False 
+            paddingGauche = int((self.largeur - 1000) / 2)
+            paddingHaut = int((self.hauteur - 600) / 2)
+            self.fenetre.geometry("1000x600+"+str(paddingGauche)+"+"+str(paddingHaut))
+        
+        else:
+            self.fenetre.attributes("-fullscreen", True)
+            self.grandEcran = True
+            
+    def enregistrerNom(self, event=None):
+        """
+		Enregistre les noms des participants 
+		"""
+        
+        if self.nom1 is None :
+            self.nom1 = self.entreeNom.get()
+            self.labelNom.config(text="Entrer le nom du joueur 2")
+            self.entreeNom.delete(0,"end")
+        else :
+            self.nom2 = self.entreeNom.get()
+            self.jeu = Moteur(self.nom1, self.nom2, 21, 3)
+            self.toutEffacer()
+            
+    def toutEffacer(self):
+        """
+		Efface tous les widgets.
+		"""
+        
+        for widget in self.fenetre.winfo_children():
+            widget.destroy()
+        
+            
+    
+
+        
+fenetre = Tk()
+InterfaceUtilisateur(fenetre)
+fenetre.mainloop()
+
+        
+
         
         
         
