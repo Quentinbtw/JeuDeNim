@@ -1,6 +1,8 @@
+from tkinter import *
+
 class Moteur :
     
-    def __init__ (self, nom1, nom2, nbBatons):
+    def __init__ (self, nom1, nom2, nbBatons, nbBatonsSupp):
         """
         Initialise le nombres de batons et le joueur qui joue.
         """
@@ -9,6 +11,8 @@ class Moteur :
         self.joueur = 1
         self.nom1 = nom1
         self.nom2 = nom2
+        self.nbBatonsSupp = nbBatonsSupp
+        
         
     def enlever (self, moinsBatons):
         """
@@ -22,7 +26,7 @@ class Moteur :
         Limite le nombre de batons soustrait entre 1 et 3.
         """
         
-        if moinsBatons > 3 or moinsBatons < 1 :
+        if moinsBatons > self.nbBatonsSupp or moinsBatons < 1 :
             return False
         
         return True 
@@ -56,7 +60,12 @@ class Console:
         while nbBatons.isdigit() is False:
             nbBatons = input("Avec combien de batons voulez-vous jouer ? ")
             
-        self.jeu = Moteur(nom1, nom2, int(nbBatons))
+        nbBatonsSupp = input("Combien de batons maximum voulez-vous enlever chaque tour ? ")
+        while nbBatonsSupp.isdigit() is False:
+            nbBatonsSupp = input("Combien de batons maximum voulez-vous enlever chaque tour ?")
+        
+        
+        self.jeu = Moteur(nom1, nom2, int(nbBatons), int(nbBatonsSupp))
         self.jouer()
         
         
