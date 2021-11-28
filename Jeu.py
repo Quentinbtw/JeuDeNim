@@ -156,6 +156,7 @@ class InterfaceUtilisateur:
             self.nom2 = self.entreeNom.get()
             self.jeu = Moteur(self.nom1, self.nom2, 21, 3)
             self.toutEffacer()
+            self.jouer()
             
     def toutEffacer(self):
         """
@@ -164,7 +165,13 @@ class InterfaceUtilisateur:
         
         for widget in self.fenetre.winfo_children():
             widget.destroy()
+    
+    def jouer (self):
         
+        self.imageBaton = PhotoImage(file = "./Batons.png")
+        self.affichageBaton = Label(image = self.imageBaton, bd = 0)
+        self.affichageBaton.image = self.imageBaton
+        self.affichageBaton.pack()
             
     
 
