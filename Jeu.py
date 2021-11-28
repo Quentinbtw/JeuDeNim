@@ -167,12 +167,91 @@ class InterfaceUtilisateur:
             widget.destroy()
     
     def jouer (self):
+        """
+		Affiche le nombre de baton(s) (en png), le(s) bouton(s)
+		"""
+        self.imageBaton = PhotoImage(file = "C:/Users/quentinomade/Desktop/JeuDeNim/images/Baton.png")
         
-        self.imageBaton = PhotoImage(file = "./Batons.png")
-        self.affichageBaton = Label(image = self.imageBaton, bd = 0)
-        self.affichageBaton.image = self.imageBaton
-        self.affichageBaton.pack()
+        for nbBatons in range(self.jeu.nbBatons):
+            self.affichageBaton = Label(image = self.imageBaton, bd = 0, bg = "black")
+            self.affichageBaton.image = self.imageBaton
+            self.affichageBaton.grid(row = 0, column = nbBatons)
             
+        self.bouton1 = Button(self.fenetre, text = "-1", command = self.fonctionBouton1)
+        self.bouton1.grid(row = 1, column = 0)
+            
+        if self.jeu.nbBatons >= 2:
+            self.bouton2 = Button(self.fenetre, text = "-2", command = self.fonctionBouton2)
+            self.bouton2.grid(row = 1, column = 1)
+        
+        if self.jeu.nbBatons >= 3:
+            self.bouton3 = Button(self.fenetre, text = "-3", command = self.fonctionBouton3)
+            self.bouton3.grid(row = 1, column = 2)
+        
+        self.tourJoueur = Label(self.fenetre, text = "Tour du joueur" + str(self.jeu.joueur))
+        self.tourJoueur.grid(row = 2, column = 1)
+        
+    def fonctionBouton1(self):
+        """
+		Efface tout, enlève 1 baton, et vérifie si le jeu est terminé
+		"""
+        self.toutEffacer()
+        self.jeu.enlever(1)
+        
+        if self.jeu.finDeTour():
+            
+            self.victoire()
+        
+        else:
+            
+            self.jouer()
+        
+    def fonctionBouton2(self):
+        """
+		Efface tout, enlève 2 batons, et vérifie si le jeu est terminé
+		"""
+        self.toutEffacer()
+        self.jeu.enlever(2)
+        
+        if self.jeu.finDeTour():
+            
+            self.victoire()
+        
+        else:
+            
+            self.jouer()
+        
+    def fonctionBouton3(self):
+        """
+		Efface tout, enlève 3 batons, et vérifie si le jeu est terminé
+		"""
+        self.toutEffacer()
+        self.jeu.enlever(3)
+        
+        if self.jeu.finDeTour():
+            
+            self.victoire()
+            
+        else:
+            
+            self.jouer()
+            
+            
+        
+        
+    def victoire(self):
+        """
+		Affiche l'écran de victoire
+		"""
+        self.imageVictoire = PhotoImage(file = "C:/Users/quentinomade/Desktop/JeuDeNim/images/Victoire.png")
+        self.affichageVictoire = Label(image = self.imageVictoire, bd = 0, bg = "black")
+        self.affichageVictoire.image = self.imageVictoire
+        self.affichageVictoire.grid(row = 0, column = 0)
+        
+        self.affichageGagnant = Label(self.fenetre, text = "LE GRAND GAGNANT EST LE JOUEUR " + str(self.jeu.joueur))
+        self.affichageGagnant.grid(row = 1, column = 0)
+    
+        
     
 
         
