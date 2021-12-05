@@ -1,4 +1,7 @@
 from tkinter import *
+import pyglet
+
+pyglet.font.add_file("minecraft_font.otf")
 
 class Moteur :
     
@@ -120,10 +123,11 @@ class InterfaceUtilisateur:
         self.hauteur = self.fenetre.winfo_screenheight()
         self.nom1 = None
         self.nom2 = None
-        self.labelNom = Label(self.fenetre, text="Entrer le nom du joueur 1", bg='black', fg='white')
-        self.labelNom.pack()
-        self.entreeNom = Entry(self.fenetre)
-        self.entreeNom.pack()
+        self.labelNom = Label(self.fenetre, text="Entrer le nom du joueur 1", bg='black', fg='white', font = ("Minecraft", 65)) 
+        self.labelNom.place(x = (self.largeur - self.labelNom.winfo_reqwidth())/2, y = (self.hauteur - self.labelNom.winfo_reqheight())/2 - 200)
+        self.entreeNom = Entry(self.fenetre, font = ("Minecraft", 50), justify='center')
+        self.entreeNom.place(x = (self.largeur - self.entreeNom.winfo_reqwidth())/2, y = (self.hauteur - self.entreeNom.winfo_reqheight())/2, 
+                             width=700, height=100)
         self.fenetre.bind("<Return>", self.enregistrerNom)
         
         
@@ -178,7 +182,7 @@ class InterfaceUtilisateur:
             self.affichageBaton.grid(row = 0, column = nbBatons)
             
         self.bouton1 = Button(self.fenetre, text = "-1", command = self.fonctionBouton1)
-        self.bouton1.grid(row = 1, column = 0)
+        self.bouton1.place(x = 100, y = 100)
             
         if self.jeu.nbBatons >= 2:
             self.bouton2 = Button(self.fenetre, text = "-2", command = self.fonctionBouton2)
@@ -248,8 +252,16 @@ class InterfaceUtilisateur:
         self.affichageVictoire.image = self.imageVictoire
         self.affichageVictoire.grid(row = 0, column = 0)
         
-        self.affichageGagnant = Label(self.fenetre, text = "LE GRAND GAGNANT EST LE JOUEUR " + str(self.jeu.joueur))
+        
+        if self.jeu.joueur == 1 :
+            self.affichageGagnant = Label(self.fenetre, text = "Le grand gagnant est " + self.jeu.nom2, font = ("Lucida Grande", 50), bg = "Black", fg = "White")
+            
+        else:
+            self.affichageGagnant = Label(self.fenetre, text = "Le grand gagnant est " + self.jeu.nom1, font = ("Lucida Grande", 50), bg = "Black", fg = "White")
+            
         self.affichageGagnant.grid(row = 1, column = 0)
+        
+            
     
         
     
