@@ -1,5 +1,6 @@
 from tkinter import *
 import pyglet
+from PIL import ImageTk, Image
 
 pyglet.font.add_file("minecraft_font.otf")
 
@@ -126,7 +127,7 @@ class InterfaceUtilisateur:
         self.labelNom = Label(self.fenetre, text="Entrer le nom du joueur 1", bg='black', fg='white', font = ("Minecraft", 65)) 
         self.labelNom.place(x = (self.largeur - self.labelNom.winfo_reqwidth())/2, y = (self.hauteur - self.labelNom.winfo_reqheight())/2 - 200)
         self.entreeNom = Entry(self.fenetre, font = ("Minecraft", 50), justify='center')
-        self.entreeNom.place(x = (self.largeur - self.entreeNom.winfo_reqwidth())/2, y = (self.hauteur - self.entreeNom.winfo_reqheight())/2, 
+        self.entreeNom.place(x = (self.largeur - 700)/2, y = (self.hauteur - 100)/2, 
                              width=700, height=100)
         self.fenetre.bind("<Return>", self.enregistrerNom)
         
@@ -179,21 +180,24 @@ class InterfaceUtilisateur:
         for nbBatons in range(self.jeu.nbBatons):
             self.affichageBaton = Label(image = self.imageBaton, bd = 0, bg = "black")
             self.affichageBaton.image = self.imageBaton
-            self.affichageBaton.grid(row = 0, column = nbBatons)
-            
-        self.bouton1 = Button(self.fenetre, text = "-1", command = self.fonctionBouton1)
-        self.bouton1.place(x = 100, y = 100)
+            self.affichageBaton.place(x = nbBatons * 70 , y = (self.hauteur - self.affichageBaton.winfo_reqheight())/2)
+
+        button_image = ImageTk.PhotoImage(Image.open("./images/minecraft_button.jpg"))
+
+        self.bouton1 = Button(self.fenetre, text = "-1", command = self.fonctionBouton1, bg='black', fg='white', font = ("Minecraft", 65), image=button_image, compound="center")
+        self.bouton1.image = button_image
+        self.bouton1.place(x = (self.largeur - self.bouton1.winfo_reqwidth())/2 - 200, y = (self.hauteur - self.bouton1.winfo_reqheight())/2 + 200)
             
         if self.jeu.nbBatons >= 2:
-            self.bouton2 = Button(self.fenetre, text = "-2", command = self.fonctionBouton2)
-            self.bouton2.grid(row = 1, column = 1)
+            self.bouton2 = Button(self.fenetre, text = "-2", command = self.fonctionBouton2, bg='black', fg='white', font = ("Minecraft", 65))
+            self.bouton2.place(x =(self.largeur - self.bouton2.winfo_reqwidth())/2, y = (self.hauteur - self.bouton2.winfo_reqheight())/2 + 200)
         
         if self.jeu.nbBatons >= 3:
-            self.bouton3 = Button(self.fenetre, text = "-3", command = self.fonctionBouton3)
-            self.bouton3.grid(row = 1, column = 2)
+            self.bouton3 = Button(self.fenetre, text = "-3", command = self.fonctionBouton3, bg='gray', fg='white', font = ("Minecraft", 65))
+            self.bouton3.place(x = (self.largeur - self.bouton3.winfo_reqwidth())/2 + 200, y = (self.hauteur - self.bouton2.winfo_reqheight())/2 + 200)
         
-        self.tourJoueur = Label(self.fenetre, text = "Tour du joueur" + str(self.jeu.joueur))
-        self.tourJoueur.grid(row = 2, column = 1)
+        self.tourJoueur = Label(self.fenetre, text = "Tour du joueur" + str(self.jeu.joueur), bg='black', fg='white', font = ("Minecraft", 65))
+        self.tourJoueur.place(x =(self.largeur - self.tourJoueur.winfo_reqwidth())/2, y = (self.hauteur - self.tourJoueur.winfo_reqheight())/2 - 200)
         
     def fonctionBouton1(self):
         """
