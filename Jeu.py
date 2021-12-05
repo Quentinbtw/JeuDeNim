@@ -174,7 +174,7 @@ class InterfaceUtilisateur:
         """
 		Affiche le nombre de baton(s) (en png), le(s) bouton(s)
 		"""
-        self.imageBaton = PhotoImage(file = "C:/Users/quentinomade/Desktop/JeuDeNim/images/Baton.png")
+        self.imageBaton = PhotoImage(file = "./images/Baton.png")
         
         for nbBatons in range(self.jeu.nbBatons):
             self.affichageBaton = Label(image = self.imageBaton, bd = 0, bg = "black")
@@ -247,7 +247,7 @@ class InterfaceUtilisateur:
         """
 		Affiche l'écran de victoire
 		"""
-        self.imageVictoire = PhotoImage(file = "C:/Users/quentinomade/Desktop/JeuDeNim/images/Victoire.png")
+        self.imageVictoire = PhotoImage(file = "./images/Victoire.png")
         self.affichageVictoire = Label(image = self.imageVictoire, bd = 0, bg = "black")
         self.affichageVictoire.image = self.imageVictoire
         self.affichageVictoire.grid(row = 0, column = 0)
