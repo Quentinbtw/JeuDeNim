@@ -119,11 +119,14 @@ class InterfaceUtilisateur:
         self.grandEcran = True
         self.fenetre.bind("<F11>", self.changerFullScreen)
         self.fenetre.geometry("1000x600+200+200")
-        self.fenetre.configure(bg='black')
         self.largeur = self.fenetre.winfo_screenwidth()
         self.hauteur = self.fenetre.winfo_screenheight()
         self.nom1 = None
         self.nom2 = None
+        self.backgroundImage = PhotoImage(file = "./images/background.png")
+        self.background = Label( self.fenetre, image = self.backgroundImage, borderwidth=0)
+        self.background.image = self.backgroundImage
+        self.background.place(x = 0, y = 0)
         self.labelNom = Label(self.fenetre, text="Entrer le nom du joueur 1", bg='black', fg='white', font = ("Minecraft", 65)) 
         self.labelNom.place(x = (self.largeur - self.labelNom.winfo_reqwidth())/2, y = (self.hauteur - self.labelNom.winfo_reqheight())/2 - 200)
         self.entreeNom = Entry(self.fenetre, font = ("Minecraft", 50), justify='center')
@@ -175,26 +178,32 @@ class InterfaceUtilisateur:
         """
 		Affiche le nombre de baton(s) (en png), le(s) bouton(s)
 		"""
+        self.background = Label( self.fenetre, image = self.backgroundImage, borderwidth=0)
+        self.background.image = self.backgroundImage
+        self.background.place(x = 0, y = 0)
+        
         self.imageBaton = PhotoImage(file = "./images/Baton.png")
         
         for nbBatons in range(self.jeu.nbBatons):
-            self.affichageBaton = Label(image = self.imageBaton, bd = 0, bg = "black")
+            self.affichageBaton = Label(image = self.imageBaton, bd = 0, bg='black')
             self.affichageBaton.image = self.imageBaton
             self.affichageBaton.place(x = nbBatons * 70 , y = (self.hauteur - self.affichageBaton.winfo_reqheight())/2)
 
         button_image = ImageTk.PhotoImage(Image.open("./images/minecraft_button.jpg"))
 
-        self.bouton1 = Button(self.fenetre, text = "-1", command = self.fonctionBouton1, bg='black', fg='white', font = ("Minecraft", 65), image=button_image, compound="center")
+        self.bouton1 = Button(self.fenetre, text = "-1", command = self.fonctionBouton1, bg='black', fg='white', font = ("Minecraft", 65), image=button_image, compound="center", borderwidth=0)
         self.bouton1.image = button_image
-        self.bouton1.place(x = (self.largeur - self.bouton1.winfo_reqwidth())/2 - 200, y = (self.hauteur - self.bouton1.winfo_reqheight())/2 + 200)
+        self.bouton1.place(x = (self.largeur - self.bouton1.winfo_reqwidth())/2 - 250, y = (self.hauteur - self.bouton1.winfo_reqheight())/2 + 200)
             
         if self.jeu.nbBatons >= 2:
-            self.bouton2 = Button(self.fenetre, text = "-2", command = self.fonctionBouton2, bg='black', fg='white', font = ("Minecraft", 65))
+            self.bouton2 = Button(self.fenetre, text = "-2", command = self.fonctionBouton2, bg='black', fg='white', font = ("Minecraft", 65), image=button_image, compound="center", borderwidth=0)
+            self.bouton2.image = button_image
             self.bouton2.place(x =(self.largeur - self.bouton2.winfo_reqwidth())/2, y = (self.hauteur - self.bouton2.winfo_reqheight())/2 + 200)
         
         if self.jeu.nbBatons >= 3:
-            self.bouton3 = Button(self.fenetre, text = "-3", command = self.fonctionBouton3, bg='gray', fg='white', font = ("Minecraft", 65))
-            self.bouton3.place(x = (self.largeur - self.bouton3.winfo_reqwidth())/2 + 200, y = (self.hauteur - self.bouton2.winfo_reqheight())/2 + 200)
+            self.bouton3 = Button(self.fenetre, text = "-3", command = self.fonctionBouton3, bg='black', fg='white', font = ("Minecraft", 65), image=button_image, compound="center", borderwidth=0)
+            self.bouton3.image = button_image
+            self.bouton3.place(x = (self.largeur - self.bouton3.winfo_reqwidth())/2 + 250, y = (self.hauteur - self.bouton2.winfo_reqheight())/2 + 200)
         
         self.tourJoueur = Label(self.fenetre, text = "Tour du joueur" + str(self.jeu.joueur), bg='black', fg='white', font = ("Minecraft", 65))
         self.tourJoueur.place(x =(self.largeur - self.tourJoueur.winfo_reqwidth())/2, y = (self.hauteur - self.tourJoueur.winfo_reqheight())/2 - 200)
@@ -251,10 +260,14 @@ class InterfaceUtilisateur:
         """
 		Affiche l'écran de victoire
 		"""
+        self.background = Label( self.fenetre, image = self.backgroundImage, borderwidth=0)
+        self.background.image = self.backgroundImage
+        self.background.place(x = 0, y = 0)
+
         self.imageVictoire = PhotoImage(file = "./images/Victoire.png")
         self.affichageVictoire = Label(image = self.imageVictoire, bd = 0, bg = "black")
         self.affichageVictoire.image = self.imageVictoire
-        self.affichageVictoire.grid(row = 0, column = 0)
+        self.affichageVictoire.place(x = (self.largeur - self.affichageVictoire.winfo_reqwidth())/2 , y = 0)
         
         
         if self.jeu.joueur == 1 :
@@ -263,7 +276,7 @@ class InterfaceUtilisateur:
         else:
             self.affichageGagnant = Label(self.fenetre, text = "Le grand gagnant est " + self.jeu.nom1, font = ("Lucida Grande", 50), bg = "Black", fg = "White")
             
-        self.affichageGagnant.grid(row = 1, column = 0)
+        self.affichageGagnant.place(x = (self.largeur - self.affichageGagnant.winfo_reqwidth())/2 , y = self.hauteur - self.affichageGagnant.winfo_reqheight() - 100)
         
             
     
